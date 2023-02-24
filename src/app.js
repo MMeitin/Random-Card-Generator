@@ -35,20 +35,30 @@ window.onload = () => {
       return arr[numA];
     };
 
-    const actualizarAlto = e => {
-      // Aplica el alto que le pasa el usuario a la carta
+    // const actualizarAlto = e => {
+    //   // Aplica el alto que le pasa el usuario a la carta
+    //   if (e.target.value >= 300 && e.target.value <= 1000) {
+    //     carta.style.height = e.target.value + "px";
+    //   } else {
+    //     carta.style.height = "30rem";
+    //   }
+    // };
+
+    // const actualizarAncho = e => {
+    //   //Aplica el ancho que le pasa el usuario a la carta
+    //   if (e.target.value >= 300 && e.target.value <= 1000) {
+    //     carta.style.width = e.target.value + "px";
+    //   } else {
+    //     carta.style.width = "20rem";
+    //   }
+    // };
+
+    const actualizarTamano = e => {
+      // Aplica la actualización en una sola función
       if (e.target.value >= 300 && e.target.value <= 1000) {
-        carta.style.height = e.target.value + "px";
+        carta.style[e.target.name] = e.target.value + "px";
       } else {
         carta.style.height = "30rem";
-      }
-    };
-
-    const actualizarAncho = e => {
-      //Aplica el ancho que le pasa el usuario a la carta
-      if (e.target.value >= 300 && e.target.value <= 1000) {
-        carta.style.width = e.target.value + "px";
-      } else {
         carta.style.width = "20rem";
       }
     };
@@ -71,8 +81,8 @@ window.onload = () => {
       numero.style.color = "black";
     }
 
-    inputAlto.addEventListener("input", actualizarAlto);
-    inputAncho.addEventListener("input", actualizarAncho);
+    inputAlto.addEventListener("input", actualizarTamano);
+    inputAncho.addEventListener("input", actualizarTamano);
   };
 
   generarCarta();
