@@ -17,41 +17,23 @@ body {
   border: 1.5px solid black;
 }
 
-.number {
-  padding: 0.25rem 1.5rem 0.25rem 1.5rem;
-}
-
-.number::before {
+#topS {
   position: absolute;
   top: -2rem;
   left: 1.5rem;
   font-size: 10rem;
 }
-.number::after {
+
+.number {
+  padding: 0.25rem 1.5rem 0.25rem 1.5rem;
+}
+
+#botS {
   position: absolute;
   bottom: -1rem;
   right: 1.5rem;
   font-size: 10rem;
   transform: rotate(180deg);
-}
-
-.spades::before,
-.spades::after {
-  content: "\2660";
-}
-.clubs::before,
-.clubs::after {
-  content: "\2663";
-}
-.hearts::before,
-.hearts::after {
-  color: red;
-  content: "\2665";
-}
-.diamonds::before,
-.diamonds::after {
-  color: red;
-  content: "\2666";
 }
 
 .boton {
@@ -65,4 +47,27 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 16px;
+}
+
+.boton:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+#form {
+  margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#form > label {
+  margin: 1.5rem 1.5rem;
+  font-size: 1.5rem;
+}
+
+#form > input {
+  width: 7.5rem;
+  height: 2.5rem;
 }

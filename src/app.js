@@ -1,6 +1,12 @@
 window.onload = () => {
-  const iconos = document.querySelector(".number");
-  const boton = document.querySelector(".boton");
+  const numero = document.querySelector(".number");
+  const topS = document.querySelector("#botS");
+  const botS = document.querySelector("#topS");
+  const botonCartaNueva = document.querySelector("#botonGenerar");
+  const botonTimer = document.querySelector("#botonTiempo");
+  const inputAlto = document.querySelector("#dimensionesH");
+  const inputAncho = document.querySelector("#dimensionesW");
+  const carta = document.querySelector(".card");
 
   const valores = [
     "A",
@@ -17,35 +23,76 @@ window.onload = () => {
     "Q",
     "K"
   ];
-  const colores = ["spades", "clubs", "hearts", "diamonds"];
+
+  const colores = ["♦", "♥", "♠", "♣"];
+
   const generarCarta = () => {
-    const randomNumber = () => {
-      let randomV = Math.floor(Math.random() * valores.length);
+    //Genera una carta aleatoria nueva
+    const randomCard = ([arr]) => {
+      //Devuelve un valor aleatorio de un array
+      let numA = Math.floor(Math.random() * arr.length);
 
-      return valores[randomV];
+      return arr[numA];
     };
 
-    const randomSuit = () => {
-      let randomC = Math.floor(Math.random() * colores.length);
-
-      return colores[randomC];
+    const actualizarAlto = e => {
+      // Aplica el alto que le pasa el usuario a la carta
+      if (e.target.value >= 300 && e.target.value <= 1000) {
+        carta.style.height = e.target.value + "px";
+      } else {
+        carta.style.height = "30rem";
+      }
     };
 
-    let color = randomSuit();
+    const actualizarAncho = e => {
+      //Aplica el ancho que le pasa el usuario a la carta
+      if (e.target.value >= 300 && e.target.value <= 1000) {
+        carta.style.width = e.target.value + "px";
+      } else {
+        carta.style.width = "20rem";
+      }
+    };
 
-    if (color == "hearts" || color == "diamonds") {
-      iconos.style.color = "red";
-      iconos.style.border = "3px groove red";
+    let cartaC = randomCard([colores]); //Asignamos un color aleatorio
+    let cartaV = randomCard([valores]); //Asignamos un valor aleatorio
+
+    numero.innerHTML = cartaV;
+    topS.innerHTML = cartaC;
+    botS.innerHTML = cartaC;
+
+    if (cartaC === "♦" || cartaC === "♥") {
+      // Corazones y diamantes: Rojos --- Diamantes y picas: Negras
+      topS.style.color = "red";
+      botS.style.color = "red";
+      numero.style.color = "red";
     } else {
-      iconos.style.border = "3px groove black";
-      iconos.style.color = "black";
+      topS.style.color = "black";
+      botS.style.color = "black";
+      numero.style.color = "black";
     }
 
-    iconos.classList.add(color);
-    iconos.innerHTML = randomNumber();
+    inputAlto.addEventListener("input", actualizarAlto);
+    inputAncho.addEventListener("input", actualizarAncho);
   };
 
   generarCarta();
 
-  boton.addEventListener("click", generarCarta);
+  botonCartaNueva.addEventListener("click", generarCarta);
+
+  let intID = false;
+  botonTimer.innerHTML = "Activar generar carta aleatoria cada 5 segundos";
+  const temporizador = () => {
+    // Activar o desactivar la creación de una carta cada 5 segundos
+    if (!intID) {
+      botonTimer.innerHTML =
+        "Desactivar generar carta aleatoria cada 5 segundos";
+      intID = setInterval(generarCarta, 5000);
+    } else {
+      botonTimer.innerHTML = "Activar generar carta aleatoria cada 5 segundos";
+      clearInterval(intID);
+      intID = false;
+    }
+  };
+
+  botonTimer.addEventListener("click", temporizador);
 };
